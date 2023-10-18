@@ -1,4 +1,4 @@
-import { DocumentData } from 'firebase/firestore';
+import { type DocumentData } from 'firebase/firestore';
 import { getDownloadURL, listAll, ref } from 'firebase/storage';
 import { FIREBASE_STORAGE } from '../utils/firebase';
 
@@ -22,18 +22,18 @@ export type Car = {
 enum Fuel {
   PETROL = 'Petrol',
   DIESEL = 'Diesel',
-  ELECTRIC = 'Electric',
+  ELECTRIC = 'Electric'
 }
 
 enum Gear {
   MANUAL = 'Manual',
-  AUTOMATIC = 'Automatic',
+  AUTOMATIC = 'Automatic'
 }
 
 enum Feature {
   BLUETOOTH = 'Bluetooth',
   AIR_CONDITION = 'Air Condition',
-  HEATED_SEATS = 'Heated Seats',
+  HEATED_SEATS = 'Heated Seats'
 }
 
 export async function mapCar(id: string, data: DocumentData): Promise<Car> {
@@ -57,19 +57,20 @@ export async function mapCar(id: string, data: DocumentData): Promise<Car> {
     fuel: data.fuel,
     gear: data.gear,
     seats: data.seats,
-    features: data.features,
+    features: data.features
   };
 }
 
 async function mapCarImages(id: string, data: Car): Promise<string[]> {
   const objects = await listAll(ref(FIREBASE_STORAGE, `cars/${id}`));
   const images = await Promise.all(
-    objects.items.map((item) => getDownloadURL(item))
+    objects.items.map(async (item) => await getDownloadURL(item))
   );
 
-  return data.images.map(
-    (image) => images.find((bucketImage) => bucketImage.includes(image))! // TODO: Verify images exist. This is a hack
+  const sortedImages = data.images.map(
+    (image) => images.find((bucketImage) => bucketImage.includes(image)) // TODO: Verify images exist. This is a hack
   );
+  return sortedImages.filter((image): image is string => image !== undefined);
 }
 
 function isCarType(data: any): data is Car {
@@ -87,7 +88,7 @@ function isCarType(data: any): data is Car {
     data.seats !== undefined
   );
 }
-function isValidCar(data: Car) {
+function isValidCar(data: Car): void {
   if (data.rating < 0 || data.rating > 5) {
     throw new Error('Rating must be between 0 and 5');
   }

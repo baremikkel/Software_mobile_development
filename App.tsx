@@ -1,4 +1,3 @@
-import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -8,7 +7,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 const Stack = createNativeStackNavigator();
 const queryClient = new QueryClient();
 
-export default function App() {
+export const App = (): JSX.Element => {
   return (
     <QueryClientProvider client={queryClient}>
       <SafeAreaProvider>
@@ -20,13 +19,4 @@ export default function App() {
       </SafeAreaProvider>
     </QueryClientProvider>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+};

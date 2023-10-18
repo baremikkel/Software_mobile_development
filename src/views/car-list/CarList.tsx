@@ -1,15 +1,15 @@
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useCars } from '../../hooks/use-cars';
 
-export const CarList = () => {
+export const CarList = (): JSX.Element => {
   const {
     data: cars,
     isLoading,
-    isError,
+    isError
   } = useCars({
     filters: {
-      make: 'Ford',
-    },
+      make: 'Ford'
+    }
   });
 
   if (isLoading) return <Text>Loading...</Text>;
@@ -31,12 +31,12 @@ export const CarList = () => {
 
 const styles = StyleSheet.create({
   constainer: {
-    backgroundColor: 'green',
+    backgroundColor: 'green'
   },
   image: {
     backgroundColor: 'red',
     width: 300,
     height: 300,
-    margin: 5,
-  },
+    margin: 5
+  }
 });
