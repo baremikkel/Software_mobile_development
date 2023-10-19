@@ -9,7 +9,7 @@
     "web": "expo start --web",
     "lint": "eslint . --ext '.js,.jsx,.ts,.tsx' --cache",
     "lint:fix": "npm run lint -- --fix",
-    "build:tsc": "tsc --build"
+    "build:tsc": "cross-env NODE_OPTIONS=--max-old-space-size=4096 tsc --build"
   },
   "dependencies": {
     "@expo/webpack-config": "^19.0.0",
@@ -20,6 +20,7 @@
     "@react-navigation/native": "^6.1.8",
     "@react-navigation/native-stack": "^6.9.14",
     "@tanstack/react-query": "^5.0.0",
+    "cross-env": "^7.0.3",
     "expo": "~49.0.13",
     "expo-status-bar": "~1.6.0",
     "firebase": "^10.5.0",

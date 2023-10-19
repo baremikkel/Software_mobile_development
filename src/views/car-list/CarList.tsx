@@ -1,6 +1,7 @@
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
 import { useCars } from '../../hooks/use-cars';
 import { Text } from '@gluestack-ui/themed';
+import React from 'react';
 
 export const CarList = (): JSX.Element => {
   const { data: cars, isLoading, isError } = useCars({});

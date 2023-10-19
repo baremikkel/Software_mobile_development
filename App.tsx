@@ -18,6 +18,7 @@ import {
 import { config } from '@gluestack-ui/config';
 import { TouchableOpacity } from 'react-native';
 import { registerRootComponent } from 'expo';
+import React from 'react';
 
 const Tab = createBottomTabNavigator();
 const queryClient = new QueryClient();
