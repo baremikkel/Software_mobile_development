@@ -3,13 +3,7 @@ import { useCars } from '../../hooks/use-cars';
 import { Text } from '@gluestack-ui/themed';
 
 export const CarList = (): JSX.Element => {
-  const {
-    data: cars,
-    isLoading,
-    isError
-  } = useCars({
-    filters: {}
-  });
+  const { data: cars, isLoading, isError } = useCars({});
 
   if (isLoading) return <Text>Loading...</Text>;
   if (isError) return <Text>Error</Text>;
