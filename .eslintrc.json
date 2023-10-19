@@ -17,5 +17,6 @@
     "space-before-function-paren": "off",
     "@typescript-eslint/space-before-function-paren": "off",
     "multiline-ternary": "off"
-  }
+  },
+  "ignorePatterns": ["node_modules", "build", "dist", "coverage"]
 }
