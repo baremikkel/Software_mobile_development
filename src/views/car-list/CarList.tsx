@@ -1,5 +1,6 @@
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, View } from 'react-native';
 import { useCars } from '../../hooks/use-cars';
+import { Text } from '@gluestack-ui/themed';
 
 export const CarList = (): JSX.Element => {
   const {
@@ -7,9 +8,7 @@ export const CarList = (): JSX.Element => {
     isLoading,
     isError
   } = useCars({
-    filters: {
-      make: 'Ford'
-    }
+    filters: {}
   });
 
   if (isLoading) return <Text>Loading...</Text>;
