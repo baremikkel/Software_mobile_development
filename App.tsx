@@ -1,21 +1,22 @@
-import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, StyleSheet, Text} from 'react-native';
-import Homescreen from './sites/homescreen'
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { CarList } from './src/views/car-list/CarList';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+const queryClient = new QueryClient();
+
+export const App = (): JSX.Element => {
   return (
-    <SafeAreaView style={styles.container}>
-      <Homescreen></Homescreen>
-    </SafeAreaView>
+    <QueryClientProvider client={queryClient}>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="CarList">
+            <Stack.Screen name="CarList" component={CarList} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </QueryClientProvider>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+};
