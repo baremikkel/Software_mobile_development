@@ -7,7 +7,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "eslint . --ext '.js,.jsx,.ts,.tsx' --cache",
+    "lint": "cross-env NODE_OPTIONS=--max-old-space-size=4096 eslint . --ext '.js,.jsx,.ts,.tsx' --cache",
     "lint:fix": "npm run lint -- --fix",
     "build:tsc": "cross-env NODE_OPTIONS=--max-old-space-size=4096 tsc --build"
   },
