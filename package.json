@@ -7,15 +7,20 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "eslint . --ext '.js,.jsx,.ts,.tsx' --cache",
+    "lint": "cross-env NODE_OPTIONS=--max-old-space-size=4096 eslint . --ext '.js,.jsx,.ts,.tsx' --cache",
     "lint:fix": "npm run lint -- --fix",
-    "build:tsc": "tsc --build"
+    "build:tsc": "cross-env NODE_OPTIONS=--max-old-space-size=4096 tsc --build"
   },
   "dependencies": {
     "@expo/webpack-config": "^19.0.0",
+    "@gluestack-style/react": "^1.0.7",
+    "@gluestack-ui/config": "^1.0.3",
+    "@gluestack-ui/themed": "^1.0.7",
+    "@react-navigation/bottom-tabs": "^6.5.9",
     "@react-navigation/native": "^6.1.8",
     "@react-navigation/native-stack": "^6.9.14",
     "@tanstack/react-query": "^5.0.0",
+    "cross-env": "^7.0.3",
     "expo": "~49.0.13",
     "expo-status-bar": "~1.6.0",
     "firebase": "^10.5.0",
@@ -24,10 +29,12 @@
     "react-native": "0.72.5",
     "react-native-safe-area-context": "4.6.3",
     "react-native-screens": "~3.22.0",
+    "react-native-svg": "^13.4.0",
     "react-native-web": "~0.19.6"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@types/node": "^18.18.6",
     "@types/react": "~18.2.14",
     "@typescript-eslint/eslint-plugin": "^6.8.0",
     "eslint": "^8.51.0",

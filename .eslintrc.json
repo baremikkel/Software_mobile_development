@@ -12,10 +12,11 @@
   "rules": {
     "@typescript-eslint/semi": "off",
     "@typescript-eslint/member-delimiter-style": "off",
-    "react/react-in-jsx-scope": "off",
     "@typescript-eslint/consistent-type-definitions": ["error", "type"],
     "@typescript-eslint/strict-boolean-expressions": "off",
     "space-before-function-paren": "off",
-    "@typescript-eslint/space-before-function-paren": "off"
-  }
+    "@typescript-eslint/space-before-function-paren": "off",
+    "multiline-ternary": "off"
+  },
+  "ignorePatterns": ["node_modules", "build", "dist", "coverage"]
 }
