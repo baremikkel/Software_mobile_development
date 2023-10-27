@@ -22,15 +22,24 @@
     "stripInternal": true,
     "isolatedModules": true,
     "allowJs": true,
-
     "baseUrl": "./",
-    "noEmit": true, // No emits, stops the compilation from emitting files. This cannot be placed at a "global" tsconfig, since you can't reference another project that does not emit files.
-    "lib": ["DOM", "ESNext"],
+    "noEmit": true,
+    "lib": [
+      "DOM",
+      "ESNext"
+    ],
     "target": "ESNext",
     "jsx": "react-native",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     }
   },
-  "include": ["src", "App.tsx", "babel.config.js"]
+  "include": [
+    "src",
+    "App.tsx",
+    "babel.config.js"
+  ],
+  "extends": "expo/tsconfig.base"
 }

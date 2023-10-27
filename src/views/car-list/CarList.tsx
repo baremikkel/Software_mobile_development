@@ -1,7 +1,9 @@
-import { Image, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { useCars } from '../../hooks/use-cars';
-import { Text } from '@gluestack-ui/themed';
+import { Center, HStack, Text, VStack } from '@gluestack-ui/themed';
 import React from 'react';
+import { CarCard } from './components/CarCard';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const CarList = (): JSX.Element => {
   const { data: cars, isLoading, isError } = useCars({});
@@ -11,26 +13,42 @@ export const CarList = (): JSX.Element => {
   if (cars?.length === 0) return <Text>No cars</Text>;
 
   return (
-    <ScrollView style={styles.constainer}>
-      {cars?.map((car) => (
-        <View key={car.id} style={styles.image}>
-          <Image source={{ uri: car.images[0] }} style={styles.image} />
-          <Text>{car.make}</Text>
-          <Text>{car.id}</Text>
-        </View>
-      ))}
-    </ScrollView>
+    <SafeAreaView>
+      <Center>
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.containerInner}
+        >
+          <HStack style={styles.header}>
+            <Text size="xl" fontWeight="$semibold" height="auto">
+              See available cars
+            </Text>
+          </HStack>
+          <VStack gap={16} marginTop={24}>
+            {cars?.map((car) => <CarCard key={car.id} car={car} />)}
+          </VStack>
+        </ScrollView>
+      </Center>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  constainer: {
-    backgroundColor: 'green'
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '95%',
+    marginX: 18,
+    minHeight: '100%'
   },
-  image: {
-    backgroundColor: 'red',
-    width: 300,
-    height: 300,
-    margin: 5
+  containerInner: {
+    alignItems: 'center'
+  },
+  header: {
+    marginTop: 24,
+    width: '100%',
+    height: 50,
+    justifyContent: 'space-between',
+    alignContent: 'center'
   }
 });

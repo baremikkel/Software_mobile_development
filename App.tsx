@@ -23,7 +23,7 @@ import React from 'react';
 const Tab = createBottomTabNavigator();
 const queryClient = new QueryClient();
 
-export const App = (): JSX.Element => {
+const App = (): JSX.Element => {
   return (
     <QueryClientProvider client={queryClient}>
       <GluestackUIProvider config={config}>
@@ -32,6 +32,9 @@ export const App = (): JSX.Element => {
             <Tab.Navigator
               initialRouteName="CarList"
               tabBar={(props) => TabBar({ ...props })}
+              screenOptions={{
+                headerShown: false
+              }}
             >
               {routes.map((route) => (
                 <Tab.Screen
@@ -144,4 +147,6 @@ function TabBar({
     </View>
   );
 }
+
+export default App;
 registerRootComponent(App);
