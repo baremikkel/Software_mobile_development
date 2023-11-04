@@ -19,6 +19,7 @@ import { config } from '@gluestack-ui/config';
 import { TouchableOpacity } from 'react-native';
 import { registerRootComponent } from 'expo';
 import React from 'react';
+import {CarView} from "./src/views/car-view/CarView";
 
 const Tab = createBottomTabNavigator();
 const queryClient = new QueryClient();
@@ -77,6 +78,12 @@ const routes: Route[] = [
     component: CarList,
     icon: SettingsIcon,
     disabled: true
+  },
+  {
+    name: 'CarView',
+    component: CarView,
+    icon: SettingsIcon,
+    disabled: false
   }
 ];
 
