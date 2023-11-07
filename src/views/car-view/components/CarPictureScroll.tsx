@@ -7,8 +7,7 @@ import {
     Text,
     TouchableOpacity,
 } from 'react-native';
-import {Center, Image} from "@gluestack-ui/themed";
-//import {CarCard} from "../../../views/car-list/components/CarCard";
+import {Center} from "@gluestack-ui/themed";
 import { useCars } from '../../../hooks/use-cars';
 export const CarPictureScroll = (): JSX.Element => {
 
