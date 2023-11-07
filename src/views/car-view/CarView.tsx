@@ -1,11 +1,15 @@
 import React from 'react';
 import {CarPictureScroll} from "./components/CarPictureScroll";
-import {SafeAreaView} from "react-native";
-export const CarView = (): JSX.Element => {
-    return(
-        <SafeAreaView>
+import {View,Text} from "@gluestack-ui/themed";
+export const CarView = () => {
+    return (
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+            <Text>
+                This is the *** car view
+            </Text>
+            <CarPictureScroll>
 
-            <CarPictureScroll></CarPictureScroll>
-        </SafeAreaView>
+            </CarPictureScroll>
+        </View>
     );
 }
