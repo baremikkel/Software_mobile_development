@@ -1,21 +1,23 @@
 import type { Car } from '@/types';
-import {HStack, Image, Text, View, VStack} from '@gluestack-ui/themed';
+import { HStack, Image, Text, View, VStack } from '@gluestack-ui/themed';
 import React from 'react';
-import {Button, StyleSheet} from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
 import { Rating } from './Rating';
-import {useNavigation} from "@react-navigation/native";
-
+import { useNavigation } from '@react-navigation/native';
 
 type Props = {
   car: Car;
 };
-export const CarView = ({ car }: Props) => {
+export const GoToCarView = ({ car }: Props) => {
   const navigation = useNavigation();
   return (
       <View>
-        <Button
-            onPress={()=>navigation.navigate('CarView')}>
-        </Button>
+        <Pressable
+            onPress={() => {
+              navigation.navigate('CarView', { car });
+            }}>
+          <Text>Go to Car view</Text>
+        </Pressable>
       </View>
   )
 }
@@ -35,7 +37,7 @@ export const CarCard = ({ car }: Props): JSX.Element => {
           </Text>
           <Rating totalRatings={car.totalRatings} rating={car.rating} />
         </VStack>
-        <CarView></CarView>
+        <GoToCarView car={car}/>
         <VStack style={styles.priceBox}>
           <Text size="xl" fontWeight="bold" textAlign="center" color="$white">
             {car.price}
