@@ -1,6 +1,6 @@
-import {ScrollView, StyleSheet} from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { useCars } from '../../hooks/use-cars';
-import {Center, HStack, Text, VStack} from '@gluestack-ui/themed';
+import { Center, HStack, Text, VStack } from '@gluestack-ui/themed';
 import React from 'react';
 import { CarCard } from './components/CarCard';
 import { SafeAreaView } from 'react-native-safe-area-context';
