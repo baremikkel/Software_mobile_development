@@ -15,27 +15,27 @@ export const CarPictureScroll = (props: PictureProps) => {
   if (isLoading) return <Text>Loading...</Text>;
   if (isError) return <Text>Error</Text>;
   if (props.curCar === null) return <Text>No cars</Text>;
-
+  /*
+    TODO Add a image container for displaying the current picture and allowing for a user to select element from scrollview
+  */
   return (<SafeAreaView style={{ flex: 1 }}>
-            <View>
-                /*
-                TODO Add a image container for displaying the current picture and allowing for a user to select element from scrollview
-                */
-                <ScrollView
-                    style={styles.container}
-                    contentContainerStyle={styles.containerInner}
+        <View>
+
+            <ScrollView
+                style={styles.container}
+                contentContainerStyle={styles.containerInner}
                 horizontal={true}
-                >
-                    {props.curCar.images.map((image) => <Image
-                        source={{ uri: image }}
-                        alt="Car image"
-                        key={props.curCar.id}
-                        width={100}
-                        style={styles.image}
-                    />)}
-                </ScrollView>
-            </View>
-        </SafeAreaView>);
+            >
+                {props.curCar.images.map((image) => <Image
+                    source={{ uri: image }}
+                    alt="Car image"
+                    key={props.curCar.id}
+                    width={100}
+                    style={styles.image}
+                />)}
+            </ScrollView>
+        </View>
+    </SafeAreaView>);
 };
 
 const styles = StyleSheet.create({
@@ -46,10 +46,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   image: {
-    width: 'auto',
-    aspectRatio: 1.77,
-    height: 200,
-    borderRadius: 10
+    width: 'auto', aspectRatio: 1.77, height: 200, borderRadius: 10
   },
   header: {
     marginTop: 24, width: '100%', height: 50, justifyContent: 'space-between', alignContent: 'center'
