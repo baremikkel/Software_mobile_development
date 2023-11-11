@@ -1,101 +1,57 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
-    FlatList,
-    SafeAreaView,
-    StatusBar,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
+  FlatList, SafeAreaView, ScrollView, StyleSheet, Text
 } from 'react-native';
-import {Center} from "@gluestack-ui/themed";
+import { Image, View } from '@gluestack-ui/themed';
 import { useCars } from '../../../hooks/use-cars';
-export const CarPictureScroll = (): JSX.Element => {
+import { type Car } from '@/types';
 
-    type ItemData = {
-        id: string;
-        title: string;
-    };
-
-    const { data: cars, isLoading, isError } = useCars({});
-
-    if (isLoading) return <Text>Loading...</Text>;
-    if (isError) return <Text>Error</Text>;
-    if (cars?.length === 0) return <Text>No cars</Text>;
-
-
-    const DATA: ItemData[] = [
-        {
-            id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-            title: 'First Item',
-        },
-        {
-            id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-            title: 'Second Item',
-        },
-        {
-            id: '58694a0f-3da1-471f-bd96-145571e29d72',
-            title: 'Third Item',
-        },
-    ];
-
-    type ItemProps = {
-        item: ItemData;
-        onPress: () => void;
-        backgroundColor: string;
-        textColor: string;
-    };
-
-    const Item = ({onPress, backgroundColor}: ItemProps) => (
-
-        <TouchableOpacity onPress={onPress} style={[styles.item, {backgroundColor}]}>
-            {cars?.map((car) => <Text>{car.model}</Text>)};
-        </TouchableOpacity>
-    );
-
-    const [selectedId, setSelectedId] = useState<string>();
-
-    const styles = StyleSheet.create({
-        container: {
-            flex: 1,
-            marginTop: StatusBar.currentHeight || 0,
-        },
-        item: {
-            padding: 20,
-            marginVertical: 8,
-            marginHorizontal: 16,
-        },
-        title: {
-            fontSize: 32,
-        },
-    });
-
-    const renderItem = ({item}: {item: ItemData}) => {
-        const backgroundColor = item.id === selectedId ? '#6e3b6e' : '#f9c2ff';
-        const color = item.id === selectedId ? 'white' : 'black';
-
-        return (
-            <Item
-                item={item}
-                onPress={() => setSelectedId(item.id)}
-                backgroundColor={backgroundColor}
-                textColor={color}
-            />
-        );
-    };
-
-    return (
-        <SafeAreaView style={styles.container}>
-            <Center>
-                <FlatList
-                    data={DATA}
-                    renderItem={renderItem}
-                    keyExtractor={item => item.id}
-                    extraData={selectedId}
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                />
-            </Center>
-        </SafeAreaView>
-    );
-
+type PictureProps = {
+  curCar: Car;
 };
+export const CarPictureScroll = (props: PictureProps) => {
+  const { isLoading, isError } = useCars({});
+
+  if (isLoading) return <Text>Loading...</Text>;
+  if (isError) return <Text>Error</Text>;
+  if (props.curCar === null) return <Text>No cars</Text>;
+
+  return (<SafeAreaView style={{ flex: 1 }}>
+            <View>
+                /*
+                TODO Add a image container for displaying the current picture and allowing for a user to select element from scrollview
+                */
+                <ScrollView
+                    style={styles.container}
+                    contentContainerStyle={styles.containerInner}
+                horizontal={true}
+                >
+                    {props.curCar.images.map((image) => <Image
+                        source={{ uri: image }}
+                        alt="Car image"
+                        key={props.curCar.id}
+                        width={100}
+                        style={styles.image}
+                    />)}
+                </ScrollView>
+            </View>
+        </SafeAreaView>);
+};
+
+const styles = StyleSheet.create({
+  container: {
+    display: 'flex', flexDirection: 'column', width: '95%', marginX: 18, minHeight: '100%'
+  },
+  containerInner: {
+    alignItems: 'center'
+  },
+  image: {
+    width: 'auto',
+    aspectRatio: 1.77,
+    height: 200,
+    borderRadius: 10
+  },
+  header: {
+    marginTop: 24, width: '100%', height: 50, justifyContent: 'space-between', alignContent: 'center'
+  }
+});
