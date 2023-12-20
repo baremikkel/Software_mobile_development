@@ -5,6 +5,7 @@ import {
 } from '@react-navigation/bottom-tabs';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { CarList } from './src/views/car-list/CarList';
+import { AddCar } from './src/views/AddCar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {
   AddIcon,
@@ -62,9 +63,9 @@ type Route = {
 const routes: Route[] = [
   {
     name: 'AddCar',
-    component: CarList,
+    component: AddCar,
     icon: AddIcon,
-    disabled: true
+    disabled: false
   },
   {
     name: 'CarList',

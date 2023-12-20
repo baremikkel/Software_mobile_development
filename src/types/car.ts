@@ -19,18 +19,18 @@ export type Car = {
   features?: Feature[];
 };
 
-enum Fuel {
+export enum Fuel {
   PETROL = 'Petrol',
   DIESEL = 'Diesel',
   ELECTRIC = 'Electric'
 }
 
-enum Gear {
+export enum Gear {
   MANUAL = 'Manual',
   AUTOMATIC = 'Automatic'
 }
 
-enum Feature {
+export enum Feature {
   BLUETOOTH = 'Bluetooth',
   AIR_CONDITION = 'Air Condition',
   HEATED_SEATS = 'Heated Seats'
