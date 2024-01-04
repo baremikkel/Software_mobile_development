@@ -1,16 +1,22 @@
 import { ScrollView, StyleSheet } from 'react-native';
 import { useCars } from '../../hooks/use-cars';
-import { Center, HStack, Text, VStack } from '@gluestack-ui/themed';
+import { Button, Center, HStack, Text, VStack } from '@gluestack-ui/themed';
 import React from 'react';
 import { CarCard } from './components/CarCard';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { createCar } from '../../Test';
 
 export const CarList = (): JSX.Element => {
   const { data: cars, isLoading, isError } = useCars({});
 
   if (isLoading) return <Text>Loading...</Text>;
   if (isError) return <Text>Error</Text>;
-  if (cars?.length === 0) return <Text>No cars</Text>;
+  if (cars?.length === 0) {
+    return (
+      <><Text>No cars</Text><Button onPress={createCar}>
+        CLICK ME
+      </Button></>);
+  }
 
   return (
     <SafeAreaView>

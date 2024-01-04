@@ -1,7 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import { FIREBASE_DB } from '../utils/firebase';
+import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
+import { FIREBASE_APP, FIREBASE_DB } from '../utils/firebase';
 import { type Car, mapCar } from '../types';
+import 'firebase/compat/firestore';
+import 'firebase/compat/auth';
 
 type Props = {
   filters?: CarFilters;
