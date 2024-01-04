@@ -5,8 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, TextInput, Pressable } from 'react-native'
 import { RadioButton, Checkbox } from 'react-native-paper';
 
-const EnumListRadio = ({ enumObject }) => {
-    const [checked, setChecked] = React.useState(Object.keys(enumObject)[0])
+const EnumListRadio = ({ enumObject, selectedValue, onValueChange }) => {
     return (
         <View>
             {Object.entries(enumObject).map(([key, value]) => (
@@ -14,8 +13,8 @@ const EnumListRadio = ({ enumObject }) => {
                     <RadioButton.Item
                         label={value}
                         value={key}
-                        status={checked === key ? 'checked' : 'unchecked'}
-                        onPress={() => setChecked(key)}
+                        status={selectedValue === key ? 'checked' : 'unchecked'}
+                        onPress={() => onValueChange(key)}
                     />
                 </View>
             ))}
@@ -75,9 +74,16 @@ export const AddCar = () => {
     const handleFeaturesChange = (checkedItems) => {
         setAddCar((prev) => ({ ...prev, features: Object.keys(checkedItems).filter(key => checkedItems[key]) }));
     }
+    const handleGearChange = (value) => {
+        setAddCar((prev) => ({ ...prev, gear: value }))
+    }
+    const handleFuelChange = (value) => {
+        setAddCar((prev) => ({ ...prev, fuel: value }));
+    };
     const listCar = () => {
         console.log(addCar)
     }
+
 
     return (
         <View style={styles.container}>
@@ -86,11 +92,11 @@ export const AddCar = () => {
             <Text style={styles.text}>Year</Text>
             <TextInput style={styles.textArea} value={addCar.year} onChangeText={(val) => setAddCar((prev) => ({ ...prev, year: val }))}></TextInput>
             <Text style={styles.text}>Gear type</Text>
-            <EnumListRadio enumObject={Gear} />
+            <EnumListRadio enumObject={Gear} selectedValue={addCar.gear} onValueChange={handleGearChange} />
             <Text style={styles.text}>Seats</Text>
             <TextInput style={styles.textArea} value={addCar.seats} onChangeText={(val) => setAddCar((prev) => ({ ...prev, seats: val }))}></TextInput>
             <Text style={styles.text}>Fuel type</Text>
-            <EnumListRadio enumObject={Fuel} />
+            <EnumListRadio enumObject={Fuel} selectedValue={addCar.fuel} onValueChange={handleFuelChange} />
             <Text style={styles.text}>Description</Text>
             <TextInput style={styles.textAreaDiscription} value={addCar.description} onChangeText={(val) => setAddCar((prev) => ({ ...prev, description: val }))}></TextInput>
             <Text style={styles.text}>Features</Text>
