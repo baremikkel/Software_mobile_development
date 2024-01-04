@@ -1,5 +1,7 @@
+
+import { onChange } from '@gluestack-style/react';
 import { Car, Fuel, Gear, Feature } from '../../src/types';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, TextInput, Pressable } from 'react-native'
 import { RadioButton, Checkbox } from 'react-native-paper';
 
@@ -20,14 +22,26 @@ const EnumListRadio = ({ enumObject }) => {
         </View>
     );
 };
-const EnumListCheckbox = ({ enumObject }) => {
-    const [checkedItems, setCheckedItems] = React.useState({});
+
+const EnumListCheckbox = ({ enumObject, onChange }) => {
+    const [checkedItems, setCheckedItems] = React.useState(() => {
+        const initialCheckedItems = {};
+        Object.keys(enumObject).forEach((key) => {
+            initialCheckedItems[key] = false;
+        });
+        return initialCheckedItems;
+    });
 
     const handleCheckboxChange = (key) => {
         setCheckedItems((prevCheckedItems) => ({
             ...prevCheckedItems,
             [key]: !prevCheckedItems[key],
         }));
+
+        onChange({
+            ...checkedItems,
+            [key]: !checkedItems[key],
+        });
     };
 
     return (
@@ -53,13 +67,18 @@ export const AddCar = () => {
         images: [],
         make: '',
         model: '',
+        description: '',
         price: 0,
         seats: 0,
         year: 0
     });
-    const listCar = () => {
-
+    const handleFeaturesChange = (checkedItems) => {
+        setAddCar((prev) => ({ ...prev, features: Object.keys(checkedItems).filter(key => checkedItems[key]) }));
     }
+    const listCar = () => {
+        console.log(addCar)
+    }
+
     return (
         <View style={styles.container}>
             <Text style={styles.text}>Model</Text>
@@ -75,10 +94,10 @@ export const AddCar = () => {
             <Text style={styles.text}>Description</Text>
             <TextInput style={styles.textAreaDiscription} value={addCar.description} onChangeText={(val) => setAddCar((prev) => ({ ...prev, description: val }))}></TextInput>
             <Text style={styles.text}>Features</Text>
-            <EnumListCheckbox enumObject={Feature} />
+            <EnumListCheckbox enumObject={Feature} onChange={handleFeaturesChange} />
             <Text style={styles.text}>Price</Text>
             <TextInput style={styles.textArea} value={addCar.price} onChangeText={(val) => setAddCar((prev) => ({ ...prev, price: val }))}></TextInput>
-            <Pressable onPress={listCar()}>
+            <Pressable onPress={() => listCar()}>
                 <Text>List Car</Text>
             </Pressable>
         </View>
