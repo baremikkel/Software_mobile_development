@@ -1,8 +1,7 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore, doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
+import { initializeApp } from 'firebase/app';
+import { getFirestore, doc, setDoc, updateDoc, getDoc, getDocs, collection } from 'firebase/firestore';
 import { Feature, Fuel, Gear } from '../src/types/car';
-
-
+import { Alert } from 'react-native';
 
 const firebaseApp = initializeApp({
   apiKey: 'AIzaSyCidJT1lq5tWRcBlSTMCQkPAbGQBTgUf8A',
@@ -16,21 +15,43 @@ const firebaseApp = initializeApp({
 
 const firestore = getFirestore();
 
-export async function updateAvailability() {
-const currentCar = doc(firestore, 'cars/17.54566432578619');
-const curCarSnap = await getDoc(currentCar);
-console.log(curCarSnap);
+export async function updateAvailability(carId: string) {
+  const currentCar = doc(firestore, 'cars/' + carId);
+  const curCarSnap = await getDoc(currentCar);
+  console.log(curCarSnap.get('available'));
 
-const docData = {
-    available: false,
-  };
-  updateDoc(currentCar, docData);
+  if (curCarSnap.get('available')) {
+    const docData = {
+      available: false
+    };
+    await updateDoc(currentCar, docData);
+  } else {
+    const docData = {
+      available: true
+    };
+    await updateDoc(currentCar, docData);
+  }
+
+
+  Alert.alert('Car booked', 'The car has been booked', [
+    {text: 'OK', onPress: () => console.log('OK Pressed')},
+  ]);
+}
+
+export async function getAllCars() {
+  const carsSnap = await getDocs(collection(firestore, 'cars'));
+  carsSnap.forEach((car) => {
+    // doc.data() is never undefined for query doc snapshots
+    console.log(car.id, " => ", car.data());
+  });
+
+  return carsSnap;
 }
 
 export function createCar() {
   const ran = Math.random();
   const newCar = doc(firestore, 'cars/' + ran * 100);
-  const imageArr = [{}]
+  const imageArr = [{}];
 
   const newCarData = {
     id: ran,
@@ -47,6 +68,6 @@ export function createCar() {
     fuel: Fuel.PETROL,
     gear: Gear.MANUAL,
     features: Feature.AIR_CONDITION
-  }
+  };
   setDoc(newCar, newCarData);
 }

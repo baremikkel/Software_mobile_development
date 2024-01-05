@@ -4,10 +4,14 @@ import { Button, Center, HStack, Text, VStack } from '@gluestack-ui/themed';
 import React from 'react';
 import { CarCard } from './components/CarCard';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { createCar } from '../../Test';
+import { createCar, getAllCars } from '../../Test';
 
 export const CarList = (): JSX.Element => {
-  const { data: cars, isLoading, isError } = useCars({});
+  const {
+    data: cars,
+    isLoading,
+    isError
+  } = useCars({});
 
   if (isLoading) return <Text>Loading...</Text>;
   if (isError) return <Text>Error</Text>;
@@ -29,6 +33,9 @@ export const CarList = (): JSX.Element => {
             <Text size="xl" fontWeight="$semibold" height="auto">
               See available cars
             </Text>
+            <Button onPress={getAllCars}>
+              Console All Cars
+            </Button>
           </HStack>
           <VStack gap={16} marginTop={24}>
             {cars?.map((car) => <CarCard key={car.id} car={car} />)}

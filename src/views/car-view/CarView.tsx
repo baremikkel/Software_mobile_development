@@ -3,9 +3,14 @@ import { Box, Button, Center, FlatList, HStack, Image, Text, View, VStack } from
 import { ScrollView, StyleSheet } from 'react-native';
 import { Rating } from '../../views/car-list/components/Rating';
 import { updateAvailability } from '../../Test';
+import { useNavigation } from '@react-navigation/native';
+
 
 export const CarView = ({ route }): React.JSX.Element => {
   const currentCar = route.params.car;
+
+  const buttonText = currentCar.available ? 'Book' : 'Unbook';
+  const navigation = useNavigation();
 
   return (
     <View>
@@ -27,12 +32,14 @@ export const CarView = ({ route }): React.JSX.Element => {
           </ScrollView>
           <HStack style={styles.information}>
             <VStack>
-              <Button style={styles.priceBox} onPress={ updateAvailability }>
-                <Text size="xl" fontWeight="bold" textAlign="center" color="$white">
-                  Book
-                </Text>
-              </Button>
-              <Rating totalRatings={currentCar.totalRatings} rating={currentCar.rating} />
+              <Button style={styles.priceBox} onPress={
+                () => { updateAvailability(currentCar.id);
+                  navigation.navigate('CarList');
+                  currentCar.available = !currentCar.available;
+                }}>
+                {buttonText}
+                </Button>
+                <Rating totalRatings={currentCar.totalRatings} rating={currentCar.rating} />
             </VStack>
             <VStack>
               <Text>

@@ -1,7 +1,5 @@
-
-import { onChange } from '@gluestack-style/react';
 import { Car, Fuel, Gear, Feature } from '../../src/types';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet, TextInput, Pressable } from 'react-native'
 import { RadioButton, Checkbox } from 'react-native-paper';
 

@@ -78,7 +78,7 @@ function isCarType(data: any): data is Car {
     data.make !== undefined &&
     data.model !== undefined &&
     data.year !== undefined &&
-    data.available !== undefined &&
+    data.available !== undefined || data.available !== false &&
     data.price !== undefined &&
     data.rating !== undefined &&
     data.totalRatings !== undefined &&
