@@ -34,7 +34,7 @@ export const CarList = (): JSX.Element => {
               See available cars
             </Text>
             <Button onPress={getAllCars}>
-              Console All Cars
+              <Text>Console All Cars</Text>
             </Button>
           </HStack>
           <VStack gap={16} marginTop={24}>

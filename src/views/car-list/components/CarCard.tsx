@@ -23,13 +23,15 @@ export const GoToCarView = ({ car }: Props) => {
 }
 
 export const CarCard = ({ car }: Props): JSX.Element => {
+  const firstCarImage = car.images.at(0);
   return (
     <VStack style={styles.carCard}>
+      {firstCarImage &&
       <Image
-        source={{ uri: car.images[0] }}
+        source={{ uri: firstCarImage }}
         style={styles.image}
         alt="Car image"
-      />
+      />}
       <HStack style={styles.information}>
         <VStack>
           <Text size="lg" fontWeight="bold">
