@@ -20,45 +20,40 @@ export const CarView = ({ route }): React.JSX.Element => {
             {currentCar.make} {currentCar.model}
           </Text>
         </HStack>
-        <Box>
           <ScrollView horizontal={true}>
             {currentCar.images.map((image) => <Image
               source={{ uri: image }}
               alt="Car image"
               key={currentCar.id}
-              width={100}
+              width={ 100 }
               style={styles.image}
             />)}
           </ScrollView>
           <HStack style={styles.information}>
             <VStack>
-              <Button style={styles.priceBox} onPress={
+              <Button style={styles.priceBox} width={ 100 } onPress={
                 () => { updateAvailability(currentCar.id);
                   navigation.navigate('CarList');
                   currentCar.available = !currentCar.available;
+                  console.log(currentCar.features);
                 }}>
-                {buttonText}
+                <Text>
+                  {buttonText}
+                </Text>
                 </Button>
                 <Rating totalRatings={currentCar.totalRatings} rating={currentCar.rating} />
             </VStack>
             <VStack>
               <Text>
-                {currentCar.fuel}
+                Fuel: {currentCar.fuel}
               </Text>
-            </VStack>
-            <VStack>
               <Text>
-                Features:
+                Main Feature: {currentCar.features}
               </Text>
-              <FlatList
-                data={currentCar.features}
-                renderItem={({ item }) => <Text>{item}</Text>}
-              />
             </VStack>
           </HStack>
-        </Box>
       </Center>
-      <Box margin={40} height={240} width={480} alignSelf={'center'} bgColor="$blue200">
+      <Box margin={40} alignSelf={'center'} bgColor="$blue200">
         <Text>
           {currentCar.description}
         </Text>

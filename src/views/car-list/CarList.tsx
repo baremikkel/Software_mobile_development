@@ -33,7 +33,7 @@ export const CarList = (): JSX.Element => {
             <Text size="xl" fontWeight="$semibold" height="auto">
               See available cars
             </Text>
-            <Button onPress={getAllCars}>
+            <Button onPress={ getAllCars }>
               <Text>Console All Cars</Text>
             </Button>
           </HStack>

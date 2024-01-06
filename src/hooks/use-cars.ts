@@ -39,7 +39,7 @@ export const useCars = ({ filters }: Props): CarHookReturn => {
       })
     );
 
-    return cars.filter((car): car is Car => car !== null);
+    return cars.filter((car): car is Car => car !== null && car.available);
   };
 
   const { data, isLoading, isError, error } = useQuery({
