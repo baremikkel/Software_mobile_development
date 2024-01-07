@@ -11,7 +11,7 @@ export const CarList = (): JSX.Element => {
     data: cars,
     isLoading,
     isError
-  } = useCars({});
+  } = useCars({filters: {available: true}});
 
   if (isLoading) return <Text>Loading...</Text>;
   if (isError) return <Text>Error</Text>;

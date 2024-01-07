@@ -65,7 +65,7 @@ export async function getAllCars() {
 export function createCar() {
   const ran = Math.random();
   const newCar = doc(firestore, 'cars/' + ran * 100);
-  const imageArr = [{}];
+  const imageArr = [{blt60ce2619fecb573b: 1}];
 
   const newCarData = {
     id: ran,

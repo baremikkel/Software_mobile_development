@@ -20,8 +20,7 @@ export const CarView = ({ route }): React.JSX.Element => {
       queryKey: ['cars']
     });
     navigation.navigate('CarList');
-
-  }
+  };
 
   return (
     <View>
@@ -42,28 +41,33 @@ export const CarView = ({ route }): React.JSX.Element => {
         </ScrollView>
         <HStack style={styles.information}>
           <VStack>
-            <Button style={styles.priceBox} onPress={() => {
-              void bookCar(currentCar.id)
-            }}>
-              {buttonText}
-            </Button>
-            <Rating totalRatings={currentCar.totalRatings} rating={currentCar.rating} />
-          </VStack>
-          <VStack>
-            <Text>
-              Fuel: {currentCar.fuel}
-            </Text>
-            <Text>
-              Main Feature: {currentCar.features}
-            </Text>
+            <Box margin={20} alignSelf={'center'}>
+              <HStack>
+                <Rating totalRatings={currentCar.totalRatings} rating={currentCar.rating} />
+                <VStack marginLeft={20}>
+                  <Text>
+                    Fuel: {currentCar.fuel}
+                  </Text>
+                  <Text>
+                    Main Feature: {currentCar.features}
+                  </Text>
+                </VStack>
+                <Button marginLeft={20} style={styles.priceBox} onPress={() => {
+                  void bookCar(currentCar.id);
+                }}
+                >
+                  {buttonText}
+                </Button>
+              </HStack>
+            </Box>
+            <Box margin={20} height={240} width={240} alignSelf={'center'} bgColor="$blue200">
+              <Text>
+                {currentCar.description}
+              </Text>
+            </Box>
           </VStack>
         </HStack>
       </Center>
-      <Box margin={40} alignSelf={'center'} bgColor="$blue200">
-        <Text>
-          {currentCar.description}
-        </Text>
-      </Box>
     </View>
   );
 };
@@ -95,10 +99,10 @@ const styles = StyleSheet.create({
     minHeight: '100%'
   },
   priceBox: {
-    width: 80,
-    height: 48,
+    width: 90,
+    height: 50,
     justifyContent: 'space-around',
     backgroundColor: '#6EBFED',
-    borderRadius: 10
+    borderRadius: 50
   }
 });

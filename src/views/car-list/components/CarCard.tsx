@@ -36,7 +36,7 @@ export const CarCard = ({ car }: Props): JSX.Element => {
       <HStack style={styles.information}>
         <VStack>
           <Text size="lg" fontWeight="bold">
-            {car.make} {car.model} {car.id}
+            {car.make} {car.model}
           </Text>
           <Rating totalRatings={car.totalRatings} rating={car.rating} />
         </VStack>

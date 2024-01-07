@@ -11,6 +11,7 @@ type Props = {
 
 type CarFilters = {
   make?: string;
+  available?: boolean;
 };
 
 type CarHookReturn = {
@@ -26,6 +27,9 @@ export const useCars = ({ filters }: Props): CarHookReturn => {
     if (filters?.make) {
       dbFilters.push(where('make', '==', filters.make));
     }
+    if (filters?.available) {
+      dbFilters.push(where('available', '==', filters.available));
+    }
 
     const carsQuery = query(collection(FIREBASE_DB, 'cars'), ...dbFilters);
     const docs = await getDocs(carsQuery);
@@ -40,7 +44,7 @@ export const useCars = ({ filters }: Props): CarHookReturn => {
       })
     );
 
-    return cars.filter((car): car is Car => car !== null && car.available);
+    return cars.filter((car): car is Car => car !== null);
   };
 
   const { data, isLoading, isError, error } = useQuery({
