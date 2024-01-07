@@ -4,7 +4,7 @@ import { Button, Center, HStack, Text, VStack } from '@gluestack-ui/themed';
 import React from 'react';
 import { CarCard } from './components/CarCard';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { createCar, getAllCars } from '../../Test';
+import { createCar } from '../../Test';
 
 export const CarList = (): JSX.Element => {
   const {
@@ -33,12 +33,15 @@ export const CarList = (): JSX.Element => {
             <Text size="xl" fontWeight="$semibold" height="auto">
               See available cars
             </Text>
-            <Button onPress={getAllCars}>
-              <Text>Console All Cars</Text>
+            <Button onPress={() => {
+              useCars({});
+            }}>
+              Update
             </Button>
           </HStack>
-          <VStack gap={16} marginTop={24}>
-            {cars?.map((car) => <CarCard key={car.id} car={car} />)}
+          <VStack gap={16} marginTop={24} >
+            { cars?.map((car) => car.available ? <CarCard key={car.id} car={car}/> : <Text key={car.id}>{car.id} is booked</Text>
+            )}
           </VStack>
         </ScrollView>
       </Center>

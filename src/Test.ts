@@ -18,31 +18,45 @@ const firestore = getFirestore();
 export async function updateAvailability(carId: string) {
   const currentCar = doc(firestore, 'cars/' + carId);
   const curCarSnap = await getDoc(currentCar);
+  let unAvailable = true;
   console.log(curCarSnap.get('available'));
 
   if (curCarSnap.get('available')) {
     const docData = {
       available: false
     };
+    unAvailable = true;
     await updateDoc(currentCar, docData);
   } else {
     const docData = {
       available: true
     };
+    unAvailable = false;
     await updateDoc(currentCar, docData);
   }
 
-
-  Alert.alert('Car booked', 'The car has been booked', [
-    {text: 'OK', onPress: () => console.log('OK Pressed')},
-  ]);
+  if (unAvailable) {
+    Alert.alert('Car booked', 'The car has been booked', [
+      {
+        text: 'OK',
+        onPress: () => console.log('OK Pressed')
+      }
+    ]);
+  } else {
+    Alert.alert('Car unbooked', 'The car has been unbooked', [
+      {
+        text: 'OK',
+        onPress: () => console.log('OK Pressed')
+      }
+    ]);
+  }
 }
 
 export async function getAllCars() {
   const carsSnap = await getDocs(collection(firestore, 'cars'));
   carsSnap.forEach((car) => {
     // doc.data() is never undefined for query doc snapshots
-    console.log(car.id, " => ", car.data());
+    console.log(car.id, ' => ', car.data());
   });
 
   return carsSnap;

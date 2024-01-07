@@ -19,6 +19,7 @@ type CarHookReturn = {
   isError: boolean;
 };
 
+
 export const useCars = ({ filters }: Props): CarHookReturn => {
   const fetchCars = async (): Promise<Car[]> => {
     const dbFilters = [];
@@ -39,7 +40,7 @@ export const useCars = ({ filters }: Props): CarHookReturn => {
       })
     );
 
-    return cars.filter((car): car is Car => car !== null);
+    return cars.filter((car): car is Car => car !== null && car.available);
   };
 
   const { data, isLoading, isError, error } = useQuery({

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Center, FlatList, HStack, Image, Text, View, VStack } from '@gluestack-ui/themed';
+import { Box, Button, Center, HStack, Image, Text, View, VStack } from '@gluestack-ui/themed';
 import { ScrollView, StyleSheet } from 'react-native';
 import { Rating } from '../../views/car-list/components/Rating';
 import { updateAvailability } from '../../Test';
@@ -31,43 +31,35 @@ export const CarView = ({ route }): React.JSX.Element => {
             {currentCar.make} {currentCar.model}
           </Text>
         </HStack>
-        <Box>
-          <ScrollView horizontal={true}>
-            {currentCar.images.map((image) => <Image
-              source={{ uri: image }}
-              alt="Car image"
-              key={currentCar.id}
-              width={100}
-              style={styles.image}
-            />)}
-          </ScrollView>
-          <HStack style={styles.information}>
-            <VStack>
-              <Button style={styles.priceBox} onPress={() => {
-                void bookCar(currentCar.id)
-              }}>
-                {buttonText}
-              </Button>
-              <Rating totalRatings={currentCar.totalRatings} rating={currentCar.rating} />
-            </VStack>
-            <VStack>
-              <Text>
-                {currentCar.fuel}
-              </Text>
-            </VStack>
-            <VStack>
-              <Text>
-                Features:
-              </Text>
-              <FlatList
-                data={currentCar.features}
-                renderItem={({ item }) => <Text>{item}</Text>}
-              />
-            </VStack>
-          </HStack>
-        </Box>
+        <ScrollView horizontal={true}>
+          {currentCar.images.map((image) => <Image
+            source={{ uri: image }}
+            alt="Car image"
+            key={currentCar.id}
+            width={100}
+            style={styles.image}
+          />)}
+        </ScrollView>
+        <HStack style={styles.information}>
+          <VStack>
+            <Button style={styles.priceBox} onPress={() => {
+              void bookCar(currentCar.id)
+            }}>
+              {buttonText}
+            </Button>
+            <Rating totalRatings={currentCar.totalRatings} rating={currentCar.rating} />
+          </VStack>
+          <VStack>
+            <Text>
+              Fuel: {currentCar.fuel}
+            </Text>
+            <Text>
+              Main Feature: {currentCar.features}
+            </Text>
+          </VStack>
+        </HStack>
       </Center>
-      <Box margin={40} height={240} width={480} alignSelf={'center'} bgColor="$blue200">
+      <Box margin={40} alignSelf={'center'} bgColor="$blue200">
         <Text>
           {currentCar.description}
         </Text>
