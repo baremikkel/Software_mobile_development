@@ -4,13 +4,24 @@ import { ScrollView, StyleSheet } from 'react-native';
 import { Rating } from '../../views/car-list/components/Rating';
 import { updateAvailability } from '../../Test';
 import { useNavigation } from '@react-navigation/native';
-
+import { Car } from '@/types';
+import { useQueryClient } from '@tanstack/react-query';
 
 export const CarView = ({ route }): React.JSX.Element => {
-  const currentCar = route.params.car;
+  const currentCar = route.params.car as Car;
 
   const buttonText = currentCar.available ? 'Book' : 'Unbook';
   const navigation = useNavigation();
+  const queryClient = useQueryClient();
+
+  const bookCar = async (id: string): Promise<void> => {
+    await updateAvailability(id);
+    void queryClient.invalidateQueries({
+      queryKey: ['cars']
+    });
+    navigation.navigate('CarList');
+
+  }
 
   return (
     <View>
@@ -32,14 +43,12 @@ export const CarView = ({ route }): React.JSX.Element => {
           </ScrollView>
           <HStack style={styles.information}>
             <VStack>
-              <Button style={styles.priceBox} onPress={
-                () => { updateAvailability(currentCar.id);
-                  navigation.navigate('CarList');
-                  currentCar.available = !currentCar.available;
-                }}>
+              <Button style={styles.priceBox} onPress={() => {
+                void bookCar(currentCar.id)
+              }}>
                 {buttonText}
-                </Button>
-                <Rating totalRatings={currentCar.totalRatings} rating={currentCar.rating} />
+              </Button>
+              <Rating totalRatings={currentCar.totalRatings} rating={currentCar.rating} />
             </VStack>
             <VStack>
               <Text>
