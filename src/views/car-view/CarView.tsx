@@ -1,11 +1,10 @@
 import React from 'react';
-import { Box, Button, Center, FlatList, HStack, Image, Text, View, VStack } from '@gluestack-ui/themed';
+import { Box, Button, Center, HStack, Image, Text, View, VStack } from '@gluestack-ui/themed';
 import { ScrollView, StyleSheet } from 'react-native';
 import { Rating } from '../../views/car-list/components/Rating';
 import { updateAvailability } from '../../Test';
 import { useNavigation } from '@react-navigation/native';
-
-
+import { useCars } from '@/hooks/use-cars';
 export const CarView = ({ route }): React.JSX.Element => {
   const currentCar = route.params.car;
 
@@ -34,7 +33,6 @@ export const CarView = ({ route }): React.JSX.Element => {
               <Button style={styles.priceBox} width={ 100 } onPress={
                 () => { updateAvailability(currentCar.id);
                   navigation.navigate('CarList');
-                  currentCar.available = !currentCar.available;
                   console.log(currentCar.features);
                 }}>
                 <Text>

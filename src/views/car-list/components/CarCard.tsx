@@ -1,5 +1,5 @@
 import type { Car } from '@/types';
-import { HStack, Image, Text, View, VStack } from '@gluestack-ui/themed';
+import { Button, HStack, Image, Text, View, VStack } from '@gluestack-ui/themed';
 import React from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 import { Rating } from './Rating';
@@ -24,6 +24,7 @@ export const GoToCarView = ({ car }: Props) => {
 
 export const CarCard = ({ car }: Props): JSX.Element => {
   const firstCarImage = car.images.at(0);
+  const navigation = useNavigation();
   return (
     <VStack style={styles.carCard}>
       {firstCarImage &&
@@ -35,19 +36,22 @@ export const CarCard = ({ car }: Props): JSX.Element => {
       <HStack style={styles.information}>
         <VStack>
           <Text size="lg" fontWeight="bold">
-            {car.make} {car.model}
+            {car.make} {car.model} {car.id}
           </Text>
           <Rating totalRatings={car.totalRatings} rating={car.rating} />
         </VStack>
-        <GoToCarView car={car}/>
-        <VStack style={styles.priceBox}>
-          <Text size="xl" fontWeight="bold" textAlign="center" color="$white">
-            {car.price}
-          </Text>
-          <Text size="xs" textAlign="center" color="$white">
-            DKK/day
-          </Text>
-        </VStack>
+        <Button onPress={() => {
+          navigation.navigate('CarView', { car });
+        }} style={styles.priceBox}>
+          <VStack alignContent={ 'center' }>
+            <Text size="s" textAlign="center" color="$white" bold>
+              {car.price}
+            </Text>
+            <Text size="xs" textAlign="center" color="$white">
+              DKK/day
+            </Text>
+          </VStack>
+        </Button>
       </HStack>
     </VStack>
   );
@@ -69,10 +73,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   priceBox: {
-    width: 70,
-    height: 57,
+    width: 90,
+    height: 50,
     justifyContent: 'space-around',
     backgroundColor: '#6EBFED',
-    borderRadius: 10
+    borderRadius: 100
   }
 });
