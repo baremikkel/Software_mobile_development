@@ -1,5 +1,7 @@
+
+import { onChange } from '@gluestack-style/react';
 import { Car, Fuel, Gear, Feature } from '../../src/types';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, TextInput, Pressable } from 'react-native'
 import { RadioButton, Checkbox } from 'react-native-paper';
 
@@ -79,6 +81,7 @@ export const AddCar = () => {
         setAddCar((prev) => ({ ...prev, fuel: value }));
     };
     const listCar = () => {
+
         console.log(addCar)
     }
 
@@ -116,7 +119,6 @@ const styles = StyleSheet.create({
     text: {
         marginLeft: 10,
         fontWeight: 'bold',
-        width: 200,
     },
     textArea: {
         marginLeft: 10,
